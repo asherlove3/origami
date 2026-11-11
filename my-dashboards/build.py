@@ -782,6 +782,9 @@ class Dumper(yaml.SafeDumper):
 def text(dumper, data):
     # A text of several lines, such as a card's styles, stays readable as a block
     style = "|" if "\n" in data else None
+    # Home Assistant's editor reads a bare y or n as true or false, so Plotly's yref: 'y' keeps its quotes
+    if data in ("y", "Y", "n", "N"):
+        style = "'"
     return dumper.represent_scalar("tag:yaml.org,2002:str", data, style=style)
 
 

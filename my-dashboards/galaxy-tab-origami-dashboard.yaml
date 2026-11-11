@@ -3234,7 +3234,7 @@ views:
               xref: paper
               x0: 0
               x1: 1
-              yref: y
+              yref: 'y'
               y0: 90
               y1: 90
               layer: below
@@ -7113,7 +7113,7 @@ views:
               xref: paper
               x0: 0
               x1: 1
-              yref: y
+              yref: 'y'
               y0: 90
               y1: 90
               layer: below
