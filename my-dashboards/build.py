@@ -287,16 +287,14 @@ def light_popup(node, lite):
 # The home view
 # ---------------------------------------------------------------------------
 
-def greeting(phone=False):
+def greeting():
     card = swap(load("greeting/card.yaml"), {"weather.home": WEATHER, "calendar.household": CALENDAR})
     card["cards"][1]["entities"] = [
         {"entity": CALENDAR, "before": "24:00:00"},
         VACUUM,
         *[{"entity": door, "name": name} for door, name in DOORS],
     ]
-    if not phone:
-        return [card]
-    # On a phone, half the row left a gap after the greeting. The greeting takes 5 of the section's
+    # Half the row left a gap after the greeting. The greeting takes 5 of the section's
     # 12 columns, enough for "Still awake?", and the notifications take the other 7.
     hello, notes = card["cards"]
     return [{**hello, "grid_options": {"columns": 5}}, {**notes, "grid_options": {"columns": 7}}]
@@ -717,7 +715,7 @@ def view(device, title, path, icon, columns, other_view=None):
     lite = device["lite"]
     wide = columns >= device.get("table_always", 99)
     phone = device.get("phone", False)
-    start = [*greeting(phone), weather(device["weather"], lite), *favorites()]
+    start = [*greeting(), weather(device["weather"], lite), *favorites()]
     rooms = [rooms_header(table_opens=not wide)]
     table = climate_table(always=wide, lite=lite)
     if not wide:
