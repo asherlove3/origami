@@ -734,6 +734,8 @@ def view(device, title, path, icon, columns, other_view=None):
         "title": title,
         "path": path,
         "icon": icon,
+        # The cards take their sizes from the theme, so the view keeps Origami whatever the device's profile picks
+        "theme": "Origami",
         "max_columns": columns,
         "sections": [{"type": "grid", "cards": cards} for cards in sections],
     }

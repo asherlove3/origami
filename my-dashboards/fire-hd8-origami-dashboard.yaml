@@ -7,6 +7,7 @@ views:
   title: Landscape
   path: landscape
   icon: mdi:tablet
+  theme: Origami
   max_columns: 2
   sections:
   - type: grid
@@ -3758,6 +3759,7 @@ views:
   title: Portrait
   path: portrait
   icon: mdi:tablet-android
+  theme: Origami
   max_columns: 1
   sections:
   - type: grid

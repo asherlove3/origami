@@ -37,7 +37,7 @@ Keep a copy of the configuration first, such as a backup under **Settings**, **S
 3. Open the dashboard and select the pencil, then **Take control** and **Start with an empty dashboard**.
 4. In the three-dot menu, select **Raw configuration editor**. Replace everything with the file's contents and select **Save**.
 
-The menu hides Home Assistant's header. To edit a dashboard later, select **Edit** in the menu, or add `?edit=1` to the address. On a tablet, the first button of the menu switches between the Landscape and the Portrait view.
+Each view uses the Origami theme, whichever theme a device picks in its profile, because the cards take their sizes from it. The menu hides Home Assistant's header. To edit a dashboard later, select **Edit** in the menu, or add `?edit=1` to the address. On a tablet, the first button of the menu switches between the Landscape and the Portrait view.
 
 ## Checked in Home Assistant
 

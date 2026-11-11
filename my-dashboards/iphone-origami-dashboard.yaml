@@ -7,6 +7,7 @@ views:
   title: Home
   path: home
   icon: mdi:home
+  theme: Origami
   max_columns: 2
   sections:
   - type: grid
