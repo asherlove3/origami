@@ -1,2 +1,3 @@
 .github/bench/node_modules/
 .github/bench/.cache/
+__pycache__/
