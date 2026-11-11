@@ -287,14 +287,19 @@ def light_popup(node, lite):
 # The home view
 # ---------------------------------------------------------------------------
 
-def greeting():
+def greeting(phone=False):
     card = swap(load("greeting/card.yaml"), {"weather.home": WEATHER, "calendar.household": CALENDAR})
     card["cards"][1]["entities"] = [
         {"entity": CALENDAR, "before": "24:00:00"},
         VACUUM,
         *[{"entity": door, "name": name} for door, name in DOORS],
     ]
-    return card
+    if not phone:
+        return [card]
+    # On a phone, half the row left a gap after the greeting. The greeting takes 5 of the section's
+    # 12 columns, enough for "Still awake?", and the notifications take the other 7.
+    hello, notes = card["cards"]
+    return [{**hello, "grid_options": {"columns": 5}}, {**notes, "grid_options": {"columns": 7}}]
 
 
 def weather(kind, lite):
@@ -600,7 +605,7 @@ def remote_command(command):
             "target": {"entity_id": TV_REMOTE}, "data": {"command": command}}
 
 
-def tv_popup(lite):
+def tv_popup(lite, phone=False):
     popup = swap(load("tv/pop-up.yaml"), {"media_player.living_room_tv": TV, "remote.living_room_tv": TV_REMOTE})
     # Nothing is cast to the TV here, so no picture shows behind the pop-up
     del popup["origami_popup"]
@@ -622,6 +627,9 @@ def tv_popup(lite):
          **({"css_class": slug(source)} if label != source else {})}
         for source, label in TV_APPS
     ]
+    if phone:
+        # On an iPhone the row doesn't scroll sideways, so the apps wrap onto a second line instead
+        del apps["origami_button"]["scroll"]
     # The key names of the Roku remote
     keys = {"Back": "back", "Home": "home", "Up": "up", "Left": "left", "OK": "select", "Right": "right", "Down": "down"}
     for button in remote["sub_button"]["bottom"]:
@@ -689,12 +697,12 @@ def favorites_popup(lite):
     return light_popup(popup, lite)
 
 
-def popups(lite):
+def popups(lite, phone=False):
     return [
         *[room_popup(room, lite) for room in ROOMS],
         lights_popup(lite),
         music_popup(lite),
-        tv_popup(lite),
+        tv_popup(lite, phone),
         vacuum_popup(lite),
         favorites_popup(lite),
         server_popup(lite),
@@ -708,8 +716,8 @@ def popups(lite):
 def view(device, title, path, icon, columns, other_view=None):
     lite = device["lite"]
     wide = columns >= device.get("table_always", 99)
-    start = [greeting(), weather(device["weather"], lite), *favorites()]
     phone = device.get("phone", False)
+    start = [*greeting(phone), weather(device["weather"], lite), *favorites()]
     rooms = [rooms_header(table_opens=not wide)]
     table = climate_table(always=wide, lite=lite)
     if not wide:
@@ -722,7 +730,7 @@ def view(device, title, path, icon, columns, other_view=None):
         # The main tablet has room for the climate table and the week's events, always in view
         sections.append([table, calendar()])
     # The pop-ups, the bar and the menu take no space, and they have to be in the same view as their buttons
-    sections[-1] += [*popups(lite), navbar(lite), menu(lite, other_view)]
+    sections[-1] += [*popups(lite, phone), navbar(lite), menu(lite, other_view)]
     return {
         "type": "sections",
         "title": title,
