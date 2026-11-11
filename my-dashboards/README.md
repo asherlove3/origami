@@ -17,9 +17,11 @@ Keep a copy of the configuration first, such as a backup under **Settings**, **S
 
 1. **Origami's basics.** The theme, the font, Bubble Card 3.4 or later with Bubble Card Tools, and all modules from [`bubble_card/modules`](../bubble_card/modules), as [Get started](../README.md#get-started) describes.
 2. **The other cards**, from HACS: [Navbar Card](../dashboard/navigation-bar/README.md#setup), [Origami Weather](../dashboard/weather/README.md#setup), [Origami Notifications](../dashboard/greeting/README.md#setup), [Origami Header](../dashboard/menu/README.md#setup) with its lines in `configuration.yaml`, and [Plotly Graph Card](../dashboard/server/README.md#optional) for the load graph on the iPhone and the Galaxy Tab.
-3. **Two light groups.** Under **Settings**, **Devices & services**, **Helpers**, create a **Group**, then **Light group**:
+3. **Three groups.** Under **Settings**, **Devices & services**, **Helpers**, create a **Group**, then **Light group**:
    - **Bedroom Lights**, so its entity ID is `light.bedroom_lights`, with Bedroom Dresser Lamp, Bedroom Strip Lights and Govee Bed Light Strip
    - **Basement Lights**, so its entity ID is `light.basement_lights`, with Basement Light Stairs and Basement Light Right Side
+
+   Then create one more **Group**, this time a **Binary sensor group**, named **Living Room Windows**, so its entity ID is `binary_sensor.living_room_windows`. Add the Couch, Front Door, Stairs and Typewriter window sensors, and leave **All entities** off, so the group is open while any one window is open. The living room card and the climate table show it.
 4. **The music pop-up.** Follow [its setup](../dashboard/music/README.md#setup) for the scripts **Playback** and **Set group volume** and the helper **Group volume**. The helper **Selected speaker** is there already. Give it these options, and delete its old ones:
    - `media_player.livingroom_ashers_echo_spot_2`
    - `media_player.kitchen_ashers_white_echo_pop_2`
@@ -44,13 +46,17 @@ These were checked in Home Assistant 2026.11.1. Change [`build.py`](build.py) if
 - **Speakers.** Each Echo has two entities: one from Alexa Devices and one from Alexa Media Player. The dashboards use the Alexa Media Player ones, such as `media_player.office_echo_dot_2` and `media_player.ashersbedroomechodot2`, because only they can play, pause and skip. Neither kind of Echo can join a speaker group. The HomePod can.
 - **Lamps.** The kitchen sink light and the dresser lamp each have a Matter entity and a Govee entity (`_2`). The dashboards use the Matter ones.
 - **Light groups.** `light.living_room_lights` holds all four living room lamps and `light.office_lights` all five office lamps, so the dashboards use them. `light.livingroom_group` and `light.office_lightgroup` hold only two lamps each.
-- **Windows.** The rooms header counts the four window contacts. They have no area in Home Assistant yet, so no room card and no row of the climate table shows a window.
-- **Bedroom sensor.** Bedroom Temp Sensor is in the area Living Room in Home Assistant. The dashboards use it for the bedroom, as its name says.
-- **TV.** The Roku TV lists Netflix, YouTube and Prime Video in its `source_list`, the three apps in `TV_APPS`.
-- **Vacuum.** The pop-up has the state, the battery from `sensor.kitchen_eufy_robovac_battery` and the keys. The vacuum has no `fan_speed_list`, so there's no suction row. Its cleaning modes are in `select.kitchen_eufy_robovac_clean_mode` instead.
+- **Windows.** All four window contacts are in the living room. The rooms header counts them one by one, and the living room card and the climate table show the **Living Room Windows** group while one is open.
+- **Bedroom sensor.** Bedroom Temp Sensor is in the area Bedroom.
+- **TV.** The app row has Netflix, YouTube, Prime Video, Hulu, Disney+, HBO Max and Fire TV, which is the HDMI ARC input the Fire TV is on. Each matches a name in the Roku's `source_list`, and Disney+ is called Disney Plus there. `TV_APPS` keeps both names.
+- **Vacuum.** The pop-up has the state, the battery from `sensor.kitchen_eufy_robovac_battery`, the keys and the eight cleaning modes of `select.kitchen_eufy_robovac_clean_mode`, with shorter names. The vacuum has no `fan_speed_list`, so there's no suction row.
 - **Fahrenheit.** The home uses °F, so the comparison weather card's bar goes from 14° to 95°.
 - **Basement.** Basement Light Right Side was unavailable during the check, so its tile stays grey until it's back online.
 - **Left out.** The home has no fan, thermostat or timer in its entity list, so the fan pop-up, the thermostat cards and the timer favorite aren't there. `light.echo_lamp` and `light.h6004_2` have no area and are in no room.
+
+## To look at later
+
+- **Echos in a speaker group through Music Assistant.** Neither Alexa integration can group the Echos, so the music pop-up can only group the HomePod. Music Assistant has an Alexa provider, and Music Assistant players can join groups. To find out: does the provider see all four Echos, do they play in sync with each other and with the HomePod, and does Music Assistant's sign-in to Amazon hold up. If it works, the music pop-up would use the Music Assistant players instead.
 
 "All lights off" turns off the lamps that `build.py` lists, not every light entity. The tablets' screens are lights in Home Assistant too, and they would go dark with the rest.
 

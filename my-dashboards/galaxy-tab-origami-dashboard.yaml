@@ -458,6 +458,10 @@ views:
           icon: mdi:circle
           origami_base:
             color: '${(t => [[12, ''#728FA8B3''], [15, ''#7C97A9B3''], [17, ''#8BA2A8B3''], [18.5, ''#9AAEA3B3''], [22, ''#88A37EB3''], [24, ''#99A677B3''], [25, ''#AEA76FB3''], [26, ''#BB9F68B3''], [27, ''#C0935FB3''], [28, ''#BF8A5FB3''], [29, ''#BB7E5DB3''], [30.5, ''#B3735CB3''], [32, ''#AA6A5AB3''], [Infinity, ''#9C6056B3'']] .find(([top]) => t <= top)?.[1] ?? ''transparent'') (hass.config.unit_system.temperature === ''°F'' ? (state - 32) / 1.8 : parseFloat(state))}'
+        - entity: binary_sensor.living_room_windows
+          icon: mdi:window-open-variant
+          origami_base:
+            hidden: ${state !== 'on'}
         - entity: sensor.living_room_temp_3_snzb_02p_sonoff_a440047919_temperature
           show_icon: false
           origami_base:
@@ -607,6 +611,10 @@ views:
         - name: room
           icon: mdi:circle
           color_template: '${(t => [[12, ''#728FA8B3''], [15, ''#7C97A9B3''], [17, ''#8BA2A8B3''], [18.5, ''#9AAEA3B3''], [22, ''#88A37EB3''], [24, ''#99A677B3''], [25, ''#AEA76FB3''], [26, ''#BB9F68B3''], [27, ''#C0935FB3''], [28, ''#BF8A5FB3''], [29, ''#BB7E5DB3''], [30.5, ''#B3735CB3''], [32, ''#AA6A5AB3''], [Infinity, ''#9C6056B3'']] .find(([top]) => t <= top)?.[1] ?? ''transparent'') (hass.config.unit_system.temperature === ''°F'' ? (state - 32) / 1.8 : parseFloat(state))}'
+        - name: window
+          icon_states:
+            'on': mdi:window-open-variant
+            'off': mdi:window-closed-variant
         - name: temperature
           width: 1fr
           align: end
@@ -638,6 +646,8 @@ views:
             name: Living
             show_name: true
             css_class: room
+          - entity: binary_sensor.living_room_windows
+            css_class: window
           - entity: sensor.living_room_temp_3_snzb_02p_sonoff_a440047919_temperature
             css_class: temperature
           - entity: sensor.living_room_temp_3_snzb_02p_sonoff_a440047919_humidity
@@ -2360,6 +2370,43 @@ views:
                   entity_id: media_player.living_room_55_tcl_roku_tv
                 data:
                   source: Prime Video
+            - name: Hulu
+              show_name: true
+              tap_action:
+                action: perform-action
+                perform_action: media_player.select_source
+                target:
+                  entity_id: media_player.living_room_55_tcl_roku_tv
+                data:
+                  source: Hulu
+            - name: Disney+
+              show_name: true
+              tap_action:
+                action: perform-action
+                perform_action: media_player.select_source
+                target:
+                  entity_id: media_player.living_room_55_tcl_roku_tv
+                data:
+                  source: Disney Plus
+              css_class: disney-plus
+            - name: HBO Max
+              show_name: true
+              tap_action:
+                action: perform-action
+                perform_action: media_player.select_source
+                target:
+                  entity_id: media_player.living_room_55_tcl_roku_tv
+                data:
+                  source: HBO Max
+            - name: Fire TV
+              show_name: true
+              tap_action:
+                action: perform-action
+                perform_action: media_player.select_source
+                target:
+                  entity_id: media_player.living_room_55_tcl_roku_tv
+                data:
+                  source: Fire TV
         - type: custom:bubble-card
           card_type: sub-buttons
           modules:
@@ -2594,6 +2641,122 @@ views:
                   perform_action: vacuum.stop
                   target:
                     entity_id: vacuum.kitchen_eufy_robovac
+        - type: custom:bubble-card
+          card_type: separator
+          name: Cleaning mode
+          modules:
+          - origami_base
+          - origami_header
+          origami_header:
+            icon_size: var(--icon-size-s)
+          sub_button:
+            main: []
+        - type: custom:bubble-card
+          card_type: sub-buttons
+          scrolling_effect: false
+          modules:
+          - origami_base
+          - origami_button
+          origami_base:
+            sub_button_height: var(--control-height-list)
+            sub_button_text_size: var(--ha-font-size-m)
+          origami_button:
+            columns: 2
+            active_style: toggle
+            icon_size: var(--icon-size-s)
+            padding: 0 0 var(--ha-space-2) 0
+            active: ${states('select.kitchen_eufy_robovac_clean_mode')}
+          sub_button:
+            main: []
+            bottom:
+            - name: Vacuum
+              css_class: auto-vacuum
+              show_name: true
+              show_icon: false
+              tap_action:
+                action: perform-action
+                perform_action: select.select_option
+                target:
+                  entity_id: select.kitchen_eufy_robovac_clean_mode
+                data:
+                  option: Auto Vacuum
+            - name: Mop & vacuum
+              css_class: auto-mop-vacuum
+              show_name: true
+              show_icon: false
+              tap_action:
+                action: perform-action
+                perform_action: select.select_option
+                target:
+                  entity_id: select.kitchen_eufy_robovac_clean_mode
+                data:
+                  option: Auto Mop & Vacuum
+            - name: Quick vacuum
+              css_class: quick-vacuum
+              show_name: true
+              show_icon: false
+              tap_action:
+                action: perform-action
+                perform_action: select.select_option
+                target:
+                  entity_id: select.kitchen_eufy_robovac_clean_mode
+                data:
+                  option: Quick Vacuum
+            - name: Quick mop
+              css_class: quick-mop-vacuum
+              show_name: true
+              show_icon: false
+              tap_action:
+                action: perform-action
+                perform_action: select.select_option
+                target:
+                  entity_id: select.kitchen_eufy_robovac_clean_mode
+                data:
+                  option: Quick Mop & Vacuum
+            - name: Quiet vacuum
+              css_class: low-noise-vacuum
+              show_name: true
+              show_icon: false
+              tap_action:
+                action: perform-action
+                perform_action: select.select_option
+                target:
+                  entity_id: select.kitchen_eufy_robovac_clean_mode
+                data:
+                  option: Low Noise Vacuum
+            - name: Quiet mop
+              css_class: low-noise-mop-vacuum
+              show_name: true
+              show_icon: false
+              tap_action:
+                action: perform-action
+                perform_action: select.select_option
+                target:
+                  entity_id: select.kitchen_eufy_robovac_clean_mode
+                data:
+                  option: Low Noise Mop & Vacuum
+            - name: Deep mop
+              css_class: auto-deep-mop-vacuum
+              show_name: true
+              show_icon: false
+              tap_action:
+                action: perform-action
+                perform_action: select.select_option
+                target:
+                  entity_id: select.kitchen_eufy_robovac_clean_mode
+                data:
+                  option: Auto Deep Mop & Vacuum
+            - name: Custom
+              css_class: eufy-customize-mode
+              show_name: true
+              show_icon: false
+              tap_action:
+                action: perform-action
+                perform_action: select.select_option
+                target:
+                  entity_id: select.kitchen_eufy_robovac_clean_mode
+                data:
+                  option: Eufy Customize Mode
     - type: custom:bubble-card
       card_type: pop-up
       hash: '#popup_favorites'
@@ -4162,6 +4325,10 @@ views:
         - name: room
           icon: mdi:circle
           color_template: '${(t => [[12, ''#728FA8B3''], [15, ''#7C97A9B3''], [17, ''#8BA2A8B3''], [18.5, ''#9AAEA3B3''], [22, ''#88A37EB3''], [24, ''#99A677B3''], [25, ''#AEA76FB3''], [26, ''#BB9F68B3''], [27, ''#C0935FB3''], [28, ''#BF8A5FB3''], [29, ''#BB7E5DB3''], [30.5, ''#B3735CB3''], [32, ''#AA6A5AB3''], [Infinity, ''#9C6056B3'']] .find(([top]) => t <= top)?.[1] ?? ''transparent'') (hass.config.unit_system.temperature === ''°F'' ? (state - 32) / 1.8 : parseFloat(state))}'
+        - name: window
+          icon_states:
+            'on': mdi:window-open-variant
+            'off': mdi:window-closed-variant
         - name: temperature
           width: 1fr
           align: end
@@ -4193,6 +4360,8 @@ views:
             name: Living
             show_name: true
             css_class: room
+          - entity: binary_sensor.living_room_windows
+            css_class: window
           - entity: sensor.living_room_temp_3_snzb_02p_sonoff_a440047919_temperature
             css_class: temperature
           - entity: sensor.living_room_temp_3_snzb_02p_sonoff_a440047919_humidity
@@ -4257,6 +4426,10 @@ views:
           icon: mdi:circle
           origami_base:
             color: '${(t => [[12, ''#728FA8B3''], [15, ''#7C97A9B3''], [17, ''#8BA2A8B3''], [18.5, ''#9AAEA3B3''], [22, ''#88A37EB3''], [24, ''#99A677B3''], [25, ''#AEA76FB3''], [26, ''#BB9F68B3''], [27, ''#C0935FB3''], [28, ''#BF8A5FB3''], [29, ''#BB7E5DB3''], [30.5, ''#B3735CB3''], [32, ''#AA6A5AB3''], [Infinity, ''#9C6056B3'']] .find(([top]) => t <= top)?.[1] ?? ''transparent'') (hass.config.unit_system.temperature === ''°F'' ? (state - 32) / 1.8 : parseFloat(state))}'
+        - entity: binary_sensor.living_room_windows
+          icon: mdi:window-open-variant
+          origami_base:
+            hidden: ${state !== 'on'}
         - entity: sensor.living_room_temp_3_snzb_02p_sonoff_a440047919_temperature
           show_icon: false
           origami_base:
@@ -6076,6 +6249,43 @@ views:
                   entity_id: media_player.living_room_55_tcl_roku_tv
                 data:
                   source: Prime Video
+            - name: Hulu
+              show_name: true
+              tap_action:
+                action: perform-action
+                perform_action: media_player.select_source
+                target:
+                  entity_id: media_player.living_room_55_tcl_roku_tv
+                data:
+                  source: Hulu
+            - name: Disney+
+              show_name: true
+              tap_action:
+                action: perform-action
+                perform_action: media_player.select_source
+                target:
+                  entity_id: media_player.living_room_55_tcl_roku_tv
+                data:
+                  source: Disney Plus
+              css_class: disney-plus
+            - name: HBO Max
+              show_name: true
+              tap_action:
+                action: perform-action
+                perform_action: media_player.select_source
+                target:
+                  entity_id: media_player.living_room_55_tcl_roku_tv
+                data:
+                  source: HBO Max
+            - name: Fire TV
+              show_name: true
+              tap_action:
+                action: perform-action
+                perform_action: media_player.select_source
+                target:
+                  entity_id: media_player.living_room_55_tcl_roku_tv
+                data:
+                  source: Fire TV
         - type: custom:bubble-card
           card_type: sub-buttons
           modules:
@@ -6310,6 +6520,122 @@ views:
                   perform_action: vacuum.stop
                   target:
                     entity_id: vacuum.kitchen_eufy_robovac
+        - type: custom:bubble-card
+          card_type: separator
+          name: Cleaning mode
+          modules:
+          - origami_base
+          - origami_header
+          origami_header:
+            icon_size: var(--icon-size-s)
+          sub_button:
+            main: []
+        - type: custom:bubble-card
+          card_type: sub-buttons
+          scrolling_effect: false
+          modules:
+          - origami_base
+          - origami_button
+          origami_base:
+            sub_button_height: var(--control-height-list)
+            sub_button_text_size: var(--ha-font-size-m)
+          origami_button:
+            columns: 2
+            active_style: toggle
+            icon_size: var(--icon-size-s)
+            padding: 0 0 var(--ha-space-2) 0
+            active: ${states('select.kitchen_eufy_robovac_clean_mode')}
+          sub_button:
+            main: []
+            bottom:
+            - name: Vacuum
+              css_class: auto-vacuum
+              show_name: true
+              show_icon: false
+              tap_action:
+                action: perform-action
+                perform_action: select.select_option
+                target:
+                  entity_id: select.kitchen_eufy_robovac_clean_mode
+                data:
+                  option: Auto Vacuum
+            - name: Mop & vacuum
+              css_class: auto-mop-vacuum
+              show_name: true
+              show_icon: false
+              tap_action:
+                action: perform-action
+                perform_action: select.select_option
+                target:
+                  entity_id: select.kitchen_eufy_robovac_clean_mode
+                data:
+                  option: Auto Mop & Vacuum
+            - name: Quick vacuum
+              css_class: quick-vacuum
+              show_name: true
+              show_icon: false
+              tap_action:
+                action: perform-action
+                perform_action: select.select_option
+                target:
+                  entity_id: select.kitchen_eufy_robovac_clean_mode
+                data:
+                  option: Quick Vacuum
+            - name: Quick mop
+              css_class: quick-mop-vacuum
+              show_name: true
+              show_icon: false
+              tap_action:
+                action: perform-action
+                perform_action: select.select_option
+                target:
+                  entity_id: select.kitchen_eufy_robovac_clean_mode
+                data:
+                  option: Quick Mop & Vacuum
+            - name: Quiet vacuum
+              css_class: low-noise-vacuum
+              show_name: true
+              show_icon: false
+              tap_action:
+                action: perform-action
+                perform_action: select.select_option
+                target:
+                  entity_id: select.kitchen_eufy_robovac_clean_mode
+                data:
+                  option: Low Noise Vacuum
+            - name: Quiet mop
+              css_class: low-noise-mop-vacuum
+              show_name: true
+              show_icon: false
+              tap_action:
+                action: perform-action
+                perform_action: select.select_option
+                target:
+                  entity_id: select.kitchen_eufy_robovac_clean_mode
+                data:
+                  option: Low Noise Mop & Vacuum
+            - name: Deep mop
+              css_class: auto-deep-mop-vacuum
+              show_name: true
+              show_icon: false
+              tap_action:
+                action: perform-action
+                perform_action: select.select_option
+                target:
+                  entity_id: select.kitchen_eufy_robovac_clean_mode
+                data:
+                  option: Auto Deep Mop & Vacuum
+            - name: Custom
+              css_class: eufy-customize-mode
+              show_name: true
+              show_icon: false
+              tap_action:
+                action: perform-action
+                perform_action: select.select_option
+                target:
+                  entity_id: select.kitchen_eufy_robovac_clean_mode
+                data:
+                  option: Eufy Customize Mode
     - type: custom:bubble-card
       card_type: pop-up
       hash: '#popup_favorites'

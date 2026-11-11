@@ -31,10 +31,31 @@ CALENDAR = "calendar.household"
 SHOPPING = "todo.shopping_list"
 VACUUM = "vacuum.kitchen_eufy_robovac"
 VACUUM_BATTERY = "sensor.kitchen_eufy_robovac_battery"
+# The vacuum's cleaning modes, each with the option of its select entity and the button's label, in pairs
+VACUUM_MODE = "select.kitchen_eufy_robovac_clean_mode"
+VACUUM_MODES = [
+    ("Auto Vacuum", "Vacuum"),
+    ("Auto Mop & Vacuum", "Mop & vacuum"),
+    ("Quick Vacuum", "Quick vacuum"),
+    ("Quick Mop & Vacuum", "Quick mop"),
+    ("Low Noise Vacuum", "Quiet vacuum"),
+    ("Low Noise Mop & Vacuum", "Quiet mop"),
+    ("Auto Deep Mop & Vacuum", "Deep mop"),
+    ("Eufy Customize Mode", "Custom"),
+]
 TV = "media_player.living_room_55_tcl_roku_tv"
 TV_REMOTE = "remote.living_room_55_tcl_roku_tv"
-# The apps of the TV, with the names its source_list attribute uses
-TV_APPS = ["Netflix", "YouTube", "Prime Video"]
+# The apps and inputs of the TV, each with the name its source_list attribute uses and the button's label.
+# Fire TV is the HDMI ARC input that the Fire TV is plugged into.
+TV_APPS = [
+    ("Netflix", "Netflix"),
+    ("YouTube", "YouTube"),
+    ("Prime Video", "Prime Video"),
+    ("Hulu", "Hulu"),
+    ("Disney Plus", "Disney+"),
+    ("HBO Max", "HBO Max"),
+    ("Fire TV", "Fire TV"),
+]
 # The toggle that opens and closes the climate table
 CLIMATE_TABLE = "input_boolean.room_climate_card"
 # The weather card's bar goes from 14° to 95° in Fahrenheit, and from -10° to 35° in Celsius
@@ -104,6 +125,8 @@ ROOMS = [
         ],
         "temperature": "sensor.living_room_temp_3_snzb_02p_sonoff_a440047919_temperature",
         "humidity": "sensor.living_room_temp_3_snzb_02p_sonoff_a440047919_humidity",
+        # A group of the four window contacts to create, as the README in this folder says
+        "window": "binary_sensor.living_room_windows",
         "speaker": "media_player.livingroom_ashers_echo_spot_2",
         "tv": TV,
     },
@@ -326,18 +349,20 @@ def room_card(room, hidden=False):
         "light.living_room": room["light"],
         "sensor.living_room_temperature": room.get("temperature", ""),
         "sensor.living_room_humidity": room.get("humidity", ""),
+        "binary_sensor.living_room_window": room.get("window", ""),
     })
     card["name"] = room["name"]
     card["icon"] = room["icon"]
     card["button_action"]["tap_action"]["navigation_path"] = f"#popup_{room['key']}"
-    dot, _window, temperature, humidity = card["sub_button"]["bottom"]
+    dot, window, temperature, humidity = card["sub_button"]["bottom"]
+    window = [window] if room.get("window") else []
     if not room.get("temperature"):
         del card["sub_button"]["bottom"]
     elif room.get("humidity"):
-        card["sub_button"]["bottom"] = [dot, temperature, humidity]
+        card["sub_button"]["bottom"] = [dot, *window, temperature, humidity]
     else:
         temperature["origami_base"]["name"] = "${num(state, 0)}°"
-        card["sub_button"]["bottom"] = [dot, temperature]
+        card["sub_button"]["bottom"] = [dot, *window, temperature]
     if hidden:
         card["visibility"] = [{"condition": "state", "entity": "input_boolean.all_rooms", "state": "on"}]
     return card
@@ -345,16 +370,18 @@ def room_card(room, hidden=False):
 
 def climate_table(always, lite):
     card = replace(replace(load("climate-table/card.yaml"), TEMPERATURES_OLD, TEMPERATURES), HUMIDITIES_OLD, HUMIDITIES)
-    # The home has no window contact for each room and no thermostats, so those two columns go
-    card["origami_table"]["columns"] = [c for c in card["origami_table"]["columns"] if c["name"] not in ("window", "thermostat")]
+    # The home has no thermostats, so that column goes. Only the living room has windows.
+    card["origami_table"]["columns"] = [c for c in card["origami_table"]["columns"] if c["name"] != "thermostat"]
     rows = []
     for room in ROOMS:
         if not room.get("temperature"):
             continue
         cells = [
             {"entity": room["temperature"], "name": room["short"], "show_name": True, "css_class": "room"},
-            {"entity": room["temperature"], "css_class": "temperature"},
         ]
+        if room.get("window"):
+            cells.append({"entity": room["window"], "css_class": "window"})
+        cells.append({"entity": room["temperature"], "css_class": "temperature"})
         if room.get("humidity"):
             cells.append({"entity": room["humidity"], "css_class": "humidity"})
         rows.append({"name": room["name"], "group": cells})
@@ -590,7 +617,10 @@ def tv_popup(lite):
     ]}]
     app = apps["sub_button"]["bottom"][0]
     apps["sub_button"]["bottom"] = [
-        {**app, "name": name, "tap_action": {**app["tap_action"], "data": {"source": name}}} for name in TV_APPS
+        {**app, "name": label, "tap_action": {**app["tap_action"], "data": {"source": source}},
+         # A label that differs from the source keeps the source as its class, so the button still lights up
+         **({"css_class": slug(source)} if label != source else {})}
+        for source, label in TV_APPS
     ]
     # The key names of the Roku remote
     keys = {"Back": "back", "Home": "home", "Up": "up", "Left": "left", "OK": "select", "Right": "right", "Down": "down"}
@@ -609,8 +639,35 @@ def vacuum_popup(lite):
     del by_name(keys, "Stop")["origami_base"]["hidden"]
     main["sub_button"]["bottom"][0]["group"] = keys
     del main["styles"]
-    popup["cards"][0]["cards"] = [main]
+    popup["cards"][0]["cards"] = [main, *cleaning_modes(popup["cards"][0]["cards"])]
     return light_popup(popup, lite)
+
+
+def cleaning_modes(cards):
+    """A header and a grid of the vacuum's cleaning modes, built from the Rooms header and the room buttons."""
+    header = copy.deepcopy(by_name(cards, "Rooms"))
+    header["name"] = "Cleaning mode"
+    header["sub_button"]["main"] = []
+    grid = copy.deepcopy(next(c for c in cards if c.get("card_type") == "sub-buttons" and "Living" in str(c)))
+    grid["origami_button"]["active"] = "${states('%s')}" % VACUUM_MODE
+    grid["sub_button"]["bottom"] = [{
+        "name": label,
+        "css_class": slug(option),
+        "show_name": True,
+        "show_icon": False,
+        "tap_action": {
+            "action": "perform-action",
+            "perform_action": "select.select_option",
+            "target": {"entity_id": VACUUM_MODE},
+            "data": {"option": option},
+        },
+    } for option, label in VACUUM_MODES]
+    return [header, grid]
+
+
+def slug(text):
+    """The class name that the Button module matches a state against, such as auto-mop-vacuum."""
+    return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
 
 
 def server_popup(lite):
