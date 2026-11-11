@@ -272,7 +272,7 @@ views:
       sub_button:
         bottom:
         - name: Living room
-          entity: media_player.livingroom_ashers_echo_spot
+          entity: media_player.livingroom_ashers_echo_spot_2
           icon: mdi:speaker
           force_icon: true
           origami_tiles:
@@ -280,7 +280,7 @@ views:
             image: ${attr.entity_picture}
           visibility:
           - condition: state
-            entity: media_player.livingroom_ashers_echo_spot
+            entity: media_player.livingroom_ashers_echo_spot_2
             state: playing
           tap_action:
             action: navigate
@@ -288,7 +288,7 @@ views:
           hold_action:
             action: more-info
         - name: Kitchen
-          entity: media_player.kitchen_ashers_white_echo_pop
+          entity: media_player.kitchen_ashers_white_echo_pop_2
           icon: mdi:speaker
           force_icon: true
           origami_tiles:
@@ -296,7 +296,7 @@ views:
             image: ${attr.entity_picture}
           visibility:
           - condition: state
-            entity: media_player.kitchen_ashers_white_echo_pop
+            entity: media_player.kitchen_ashers_white_echo_pop_2
             state: playing
           tap_action:
             action: navigate
@@ -304,7 +304,7 @@ views:
           hold_action:
             action: more-info
         - name: Bedroom
-          entity: media_player.asherbedroomechodot
+          entity: media_player.ashersbedroomechodot2
           icon: mdi:speaker
           force_icon: true
           origami_tiles:
@@ -312,7 +312,7 @@ views:
             image: ${attr.entity_picture}
           visibility:
           - condition: state
-            entity: media_player.asherbedroomechodot
+            entity: media_player.ashersbedroomechodot2
             state: playing
           tap_action:
             action: navigate
@@ -320,7 +320,7 @@ views:
           hold_action:
             action: more-info
         - name: Office
-          entity: media_player.office_echo_dot
+          entity: media_player.office_echo_dot_2
           icon: mdi:speaker
           force_icon: true
           origami_tiles:
@@ -328,7 +328,7 @@ views:
             image: ${attr.entity_picture}
           visibility:
           - condition: state
-            entity: media_player.office_echo_dot
+            entity: media_player.office_echo_dot_2
             state: playing
           tap_action:
             action: navigate
@@ -848,7 +848,7 @@ views:
           - type: custom:bubble-card
             card_type: media-player
             button_type: state
-            entity: media_player.livingroom_ashers_echo_spot
+            entity: media_player.livingroom_ashers_echo_spot_2
             name: Speaker
             icon: mdi:speaker
             modules:
@@ -884,16 +884,16 @@ views:
                   action: perform-action
                   perform_action: media_player.media_play_pause
                   target:
-                    entity_id: media_player.livingroom_ashers_echo_spot
+                    entity_id: media_player.livingroom_ashers_echo_spot_2
               - icon: mdi:skip-next
                 show_background: false
                 tap_action:
                   action: perform-action
                   perform_action: media_player.media_next_track
                   target:
-                    entity_id: media_player.livingroom_ashers_echo_spot
+                    entity_id: media_player.livingroom_ashers_echo_spot_2
               bottom:
-              - entity: media_player.livingroom_ashers_echo_spot
+              - entity: media_player.livingroom_ashers_echo_spot_2
                 sub_button_type: slider
                 always_visible: true
             rows: '2.2'
@@ -1018,7 +1018,7 @@ views:
           - type: custom:bubble-card
             card_type: media-player
             button_type: state
-            entity: media_player.kitchen_ashers_white_echo_pop
+            entity: media_player.kitchen_ashers_white_echo_pop_2
             name: Speaker
             icon: mdi:speaker
             modules:
@@ -1054,16 +1054,16 @@ views:
                   action: perform-action
                   perform_action: media_player.media_play_pause
                   target:
-                    entity_id: media_player.kitchen_ashers_white_echo_pop
+                    entity_id: media_player.kitchen_ashers_white_echo_pop_2
               - icon: mdi:skip-next
                 show_background: false
                 tap_action:
                   action: perform-action
                   perform_action: media_player.media_next_track
                   target:
-                    entity_id: media_player.kitchen_ashers_white_echo_pop
+                    entity_id: media_player.kitchen_ashers_white_echo_pop_2
               bottom:
-              - entity: media_player.kitchen_ashers_white_echo_pop
+              - entity: media_player.kitchen_ashers_white_echo_pop_2
                 sub_button_type: slider
                 always_visible: true
             rows: '2.2'
@@ -1221,7 +1221,7 @@ views:
           - type: custom:bubble-card
             card_type: media-player
             button_type: state
-            entity: media_player.asherbedroomechodot
+            entity: media_player.ashersbedroomechodot2
             name: Speaker
             icon: mdi:speaker
             modules:
@@ -1257,16 +1257,16 @@ views:
                   action: perform-action
                   perform_action: media_player.media_play_pause
                   target:
-                    entity_id: media_player.asherbedroomechodot
+                    entity_id: media_player.ashersbedroomechodot2
               - icon: mdi:skip-next
                 show_background: false
                 tap_action:
                   action: perform-action
                   perform_action: media_player.media_next_track
                   target:
-                    entity_id: media_player.asherbedroomechodot
+                    entity_id: media_player.ashersbedroomechodot2
               bottom:
-              - entity: media_player.asherbedroomechodot
+              - entity: media_player.ashersbedroomechodot2
                 sub_button_type: slider
                 always_visible: true
             rows: '2.2'
@@ -1486,7 +1486,7 @@ views:
           - type: custom:bubble-card
             card_type: media-player
             button_type: state
-            entity: media_player.office_echo_dot
+            entity: media_player.office_echo_dot_2
             name: Speaker
             icon: mdi:speaker
             modules:
@@ -1522,16 +1522,16 @@ views:
                   action: perform-action
                   perform_action: media_player.media_play_pause
                   target:
-                    entity_id: media_player.office_echo_dot
+                    entity_id: media_player.office_echo_dot_2
               - icon: mdi:skip-next
                 show_background: false
                 tap_action:
                   action: perform-action
                   perform_action: media_player.media_next_track
                   target:
-                    entity_id: media_player.office_echo_dot
+                    entity_id: media_player.office_echo_dot_2
               bottom:
-              - entity: media_player.office_echo_dot
+              - entity: media_player.office_echo_dot_2
                 sub_button_type: slider
                 always_visible: true
             rows: '2.2'
@@ -2011,7 +2011,7 @@ views:
         - entity: input_select.selected_speaker
           sub_button_type: select
           show_icon: false
-        - entity: media_player.livingroom_ashers_echo_spot
+        - entity: media_player.livingroom_ashers_echo_spot_2
           icon: mdi:circle
           show_name: false
           show_background: true
@@ -2025,8 +2025,8 @@ views:
             target:
               entity_id: input_select.selected_speaker
             data:
-              option: media_player.livingroom_ashers_echo_spot
-        - entity: media_player.kitchen_ashers_white_echo_pop
+              option: media_player.livingroom_ashers_echo_spot_2
+        - entity: media_player.kitchen_ashers_white_echo_pop_2
           icon: mdi:circle
           show_name: false
           show_background: true
@@ -2040,8 +2040,8 @@ views:
             target:
               entity_id: input_select.selected_speaker
             data:
-              option: media_player.kitchen_ashers_white_echo_pop
-        - entity: media_player.asherbedroomechodot
+              option: media_player.kitchen_ashers_white_echo_pop_2
+        - entity: media_player.ashersbedroomechodot2
           icon: mdi:circle
           show_name: false
           show_background: true
@@ -2055,8 +2055,8 @@ views:
             target:
               entity_id: input_select.selected_speaker
             data:
-              option: media_player.asherbedroomechodot
-        - entity: media_player.office_echo_dot
+              option: media_player.ashersbedroomechodot2
+        - entity: media_player.office_echo_dot_2
           icon: mdi:circle
           show_name: false
           show_background: true
@@ -2070,7 +2070,7 @@ views:
             target:
               entity_id: input_select.selected_speaker
             data:
-              option: media_player.office_echo_dot
+              option: media_player.office_echo_dot_2
         - entity: media_player.office_homepod_mini
           icon: mdi:circle
           show_name: false
@@ -2535,7 +2535,16 @@ views:
           rows: auto
           sub_button:
             bottom_layout: rows
-            main: []
+            main:
+            - entity: sensor.kitchen_eufy_robovac_battery
+              show_name: true
+              show_icon: false
+              show_background: false
+              origami_base:
+                name: ${num(state, 0, '%') || '–'}
+                label: '${states(''vacuum.kitchen_eufy_robovac'') === ''docked'' && Number(state) < 100 ? ''Charging'' : ''Battery''}'
+              tap_action:
+                action: more-info
             bottom:
             - name: Controls
               group:
@@ -3078,10 +3087,10 @@ views:
         icon: mdi:speaker
         icon_selected: mdi:speaker-play
         selected_color: var(--state-media_player-active-color)
-        selected: '[[[ return [''media_player.livingroom_ashers_echo_spot'', ''media_player.kitchen_ashers_white_echo_pop'', ''media_player.asherbedroomechodot'', ''media_player.office_echo_dot'', ''media_player.office_homepod_mini''].some((id) => states[id]?.state === ''playing''); ]]]'
+        selected: '[[[ return [''media_player.livingroom_ashers_echo_spot_2'', ''media_player.kitchen_ashers_white_echo_pop_2'', ''media_player.ashersbedroomechodot2'', ''media_player.office_echo_dot_2'', ''media_player.office_homepod_mini''].some((id) => states[id]?.state === ''playing''); ]]]'
         badge:
-          show: '[[[ return [''media_player.livingroom_ashers_echo_spot'', ''media_player.kitchen_ashers_white_echo_pop'', ''media_player.asherbedroomechodot'', ''media_player.office_echo_dot'', ''media_player.office_homepod_mini''].some((id) => states[id]?.state === ''playing''); ]]]'
-          count: '[[[ return [''media_player.livingroom_ashers_echo_spot'', ''media_player.kitchen_ashers_white_echo_pop'', ''media_player.asherbedroomechodot'', ''media_player.office_echo_dot'', ''media_player.office_homepod_mini''].filter((id) => states[id]?.state === ''playing'').length; ]]]'
+          show: '[[[ return [''media_player.livingroom_ashers_echo_spot_2'', ''media_player.kitchen_ashers_white_echo_pop_2'', ''media_player.ashersbedroomechodot2'', ''media_player.office_echo_dot_2'', ''media_player.office_homepod_mini''].some((id) => states[id]?.state === ''playing''); ]]]'
+          count: '[[[ return [''media_player.livingroom_ashers_echo_spot_2'', ''media_player.kitchen_ashers_white_echo_pop_2'', ''media_player.ashersbedroomechodot2'', ''media_player.office_echo_dot_2'', ''media_player.office_homepod_mini''].filter((id) => states[id]?.state === ''playing'').length; ]]]'
         tap_action:
           action: navigate
           navigation_path: '#popup_music'
@@ -3089,7 +3098,7 @@ views:
           action: custom-js-action
           code: |-
             [[[
-              const speakers = ['media_player.livingroom_ashers_echo_spot', 'media_player.kitchen_ashers_white_echo_pop', 'media_player.asherbedroomechodot', 'media_player.office_echo_dot', 'media_player.office_homepod_mini'];
+              const speakers = ['media_player.livingroom_ashers_echo_spot_2', 'media_player.kitchen_ashers_white_echo_pop_2', 'media_player.ashersbedroomechodot2', 'media_player.office_echo_dot_2', 'media_player.office_homepod_mini'];
               const find = (state) => speakers.find((id) => states[id]?.state === state && states[id].attributes.media_title);
               const speaker = find('playing') ?? find('paused');
               const leader = states[speaker]?.attributes?.group_members?.[0];
@@ -3208,7 +3217,7 @@ views:
         players:
         - entity: |-
             [[[
-              const speakers = ['media_player.livingroom_ashers_echo_spot', 'media_player.kitchen_ashers_white_echo_pop', 'media_player.asherbedroomechodot', 'media_player.office_echo_dot', 'media_player.office_homepod_mini'];
+              const speakers = ['media_player.livingroom_ashers_echo_spot_2', 'media_player.kitchen_ashers_white_echo_pop_2', 'media_player.ashersbedroomechodot2', 'media_player.office_echo_dot_2', 'media_player.office_homepod_mini'];
               const find = (state) => speakers.find((id) => states[id]?.state === state && states[id].attributes.media_title);
               const speaker = find('playing') ?? find('paused') ?? speakers[0];
               const leader = states[speaker]?.attributes?.group_members?.[0];
@@ -3216,7 +3225,7 @@ views:
             ]]]
           show: |-
             [[[
-              const speakers = ['media_player.livingroom_ashers_echo_spot', 'media_player.kitchen_ashers_white_echo_pop', 'media_player.asherbedroomechodot', 'media_player.office_echo_dot', 'media_player.office_homepod_mini'];
+              const speakers = ['media_player.livingroom_ashers_echo_spot_2', 'media_player.kitchen_ashers_white_echo_pop_2', 'media_player.ashersbedroomechodot2', 'media_player.office_echo_dot_2', 'media_player.office_homepod_mini'];
               const find = (state) => speakers.find((id) => states[id]?.state === state && states[id].attributes.media_title);
               const speaker = find('playing') ?? find('paused');
               // The styles can't read states, so the link on the cover reads this variable
@@ -3226,7 +3235,7 @@ views:
             ]]]
           subtitle: |-
             [[[
-              const speakers = ['media_player.livingroom_ashers_echo_spot', 'media_player.kitchen_ashers_white_echo_pop', 'media_player.asherbedroomechodot', 'media_player.office_echo_dot', 'media_player.office_homepod_mini'];
+              const speakers = ['media_player.livingroom_ashers_echo_spot_2', 'media_player.kitchen_ashers_white_echo_pop_2', 'media_player.ashersbedroomechodot2', 'media_player.office_echo_dot_2', 'media_player.office_homepod_mini'];
               const find = (state) => speakers.find((id) => states[id]?.state === state && states[id].attributes.media_title);
               const speaker = states[find('playing') ?? find('paused')];
               const others = (speaker?.attributes?.group_members?.length ?? 1) - 1;
@@ -3968,7 +3977,7 @@ views:
       sub_button:
         bottom:
         - name: Living room
-          entity: media_player.livingroom_ashers_echo_spot
+          entity: media_player.livingroom_ashers_echo_spot_2
           icon: mdi:speaker
           force_icon: true
           origami_tiles:
@@ -3976,7 +3985,7 @@ views:
             image: ${attr.entity_picture}
           visibility:
           - condition: state
-            entity: media_player.livingroom_ashers_echo_spot
+            entity: media_player.livingroom_ashers_echo_spot_2
             state: playing
           tap_action:
             action: navigate
@@ -3984,7 +3993,7 @@ views:
           hold_action:
             action: more-info
         - name: Kitchen
-          entity: media_player.kitchen_ashers_white_echo_pop
+          entity: media_player.kitchen_ashers_white_echo_pop_2
           icon: mdi:speaker
           force_icon: true
           origami_tiles:
@@ -3992,7 +4001,7 @@ views:
             image: ${attr.entity_picture}
           visibility:
           - condition: state
-            entity: media_player.kitchen_ashers_white_echo_pop
+            entity: media_player.kitchen_ashers_white_echo_pop_2
             state: playing
           tap_action:
             action: navigate
@@ -4000,7 +4009,7 @@ views:
           hold_action:
             action: more-info
         - name: Bedroom
-          entity: media_player.asherbedroomechodot
+          entity: media_player.ashersbedroomechodot2
           icon: mdi:speaker
           force_icon: true
           origami_tiles:
@@ -4008,7 +4017,7 @@ views:
             image: ${attr.entity_picture}
           visibility:
           - condition: state
-            entity: media_player.asherbedroomechodot
+            entity: media_player.ashersbedroomechodot2
             state: playing
           tap_action:
             action: navigate
@@ -4016,7 +4025,7 @@ views:
           hold_action:
             action: more-info
         - name: Office
-          entity: media_player.office_echo_dot
+          entity: media_player.office_echo_dot_2
           icon: mdi:speaker
           force_icon: true
           origami_tiles:
@@ -4024,7 +4033,7 @@ views:
             image: ${attr.entity_picture}
           visibility:
           - condition: state
-            entity: media_player.office_echo_dot
+            entity: media_player.office_echo_dot_2
             state: playing
           tap_action:
             action: navigate
@@ -4555,7 +4564,7 @@ views:
           - type: custom:bubble-card
             card_type: media-player
             button_type: state
-            entity: media_player.livingroom_ashers_echo_spot
+            entity: media_player.livingroom_ashers_echo_spot_2
             name: Speaker
             icon: mdi:speaker
             modules:
@@ -4591,16 +4600,16 @@ views:
                   action: perform-action
                   perform_action: media_player.media_play_pause
                   target:
-                    entity_id: media_player.livingroom_ashers_echo_spot
+                    entity_id: media_player.livingroom_ashers_echo_spot_2
               - icon: mdi:skip-next
                 show_background: false
                 tap_action:
                   action: perform-action
                   perform_action: media_player.media_next_track
                   target:
-                    entity_id: media_player.livingroom_ashers_echo_spot
+                    entity_id: media_player.livingroom_ashers_echo_spot_2
               bottom:
-              - entity: media_player.livingroom_ashers_echo_spot
+              - entity: media_player.livingroom_ashers_echo_spot_2
                 sub_button_type: slider
                 always_visible: true
             rows: '2.2'
@@ -4725,7 +4734,7 @@ views:
           - type: custom:bubble-card
             card_type: media-player
             button_type: state
-            entity: media_player.kitchen_ashers_white_echo_pop
+            entity: media_player.kitchen_ashers_white_echo_pop_2
             name: Speaker
             icon: mdi:speaker
             modules:
@@ -4761,16 +4770,16 @@ views:
                   action: perform-action
                   perform_action: media_player.media_play_pause
                   target:
-                    entity_id: media_player.kitchen_ashers_white_echo_pop
+                    entity_id: media_player.kitchen_ashers_white_echo_pop_2
               - icon: mdi:skip-next
                 show_background: false
                 tap_action:
                   action: perform-action
                   perform_action: media_player.media_next_track
                   target:
-                    entity_id: media_player.kitchen_ashers_white_echo_pop
+                    entity_id: media_player.kitchen_ashers_white_echo_pop_2
               bottom:
-              - entity: media_player.kitchen_ashers_white_echo_pop
+              - entity: media_player.kitchen_ashers_white_echo_pop_2
                 sub_button_type: slider
                 always_visible: true
             rows: '2.2'
@@ -4928,7 +4937,7 @@ views:
           - type: custom:bubble-card
             card_type: media-player
             button_type: state
-            entity: media_player.asherbedroomechodot
+            entity: media_player.ashersbedroomechodot2
             name: Speaker
             icon: mdi:speaker
             modules:
@@ -4964,16 +4973,16 @@ views:
                   action: perform-action
                   perform_action: media_player.media_play_pause
                   target:
-                    entity_id: media_player.asherbedroomechodot
+                    entity_id: media_player.ashersbedroomechodot2
               - icon: mdi:skip-next
                 show_background: false
                 tap_action:
                   action: perform-action
                   perform_action: media_player.media_next_track
                   target:
-                    entity_id: media_player.asherbedroomechodot
+                    entity_id: media_player.ashersbedroomechodot2
               bottom:
-              - entity: media_player.asherbedroomechodot
+              - entity: media_player.ashersbedroomechodot2
                 sub_button_type: slider
                 always_visible: true
             rows: '2.2'
@@ -5193,7 +5202,7 @@ views:
           - type: custom:bubble-card
             card_type: media-player
             button_type: state
-            entity: media_player.office_echo_dot
+            entity: media_player.office_echo_dot_2
             name: Speaker
             icon: mdi:speaker
             modules:
@@ -5229,16 +5238,16 @@ views:
                   action: perform-action
                   perform_action: media_player.media_play_pause
                   target:
-                    entity_id: media_player.office_echo_dot
+                    entity_id: media_player.office_echo_dot_2
               - icon: mdi:skip-next
                 show_background: false
                 tap_action:
                   action: perform-action
                   perform_action: media_player.media_next_track
                   target:
-                    entity_id: media_player.office_echo_dot
+                    entity_id: media_player.office_echo_dot_2
               bottom:
-              - entity: media_player.office_echo_dot
+              - entity: media_player.office_echo_dot_2
                 sub_button_type: slider
                 always_visible: true
             rows: '2.2'
@@ -5718,7 +5727,7 @@ views:
         - entity: input_select.selected_speaker
           sub_button_type: select
           show_icon: false
-        - entity: media_player.livingroom_ashers_echo_spot
+        - entity: media_player.livingroom_ashers_echo_spot_2
           icon: mdi:circle
           show_name: false
           show_background: true
@@ -5732,8 +5741,8 @@ views:
             target:
               entity_id: input_select.selected_speaker
             data:
-              option: media_player.livingroom_ashers_echo_spot
-        - entity: media_player.kitchen_ashers_white_echo_pop
+              option: media_player.livingroom_ashers_echo_spot_2
+        - entity: media_player.kitchen_ashers_white_echo_pop_2
           icon: mdi:circle
           show_name: false
           show_background: true
@@ -5747,8 +5756,8 @@ views:
             target:
               entity_id: input_select.selected_speaker
             data:
-              option: media_player.kitchen_ashers_white_echo_pop
-        - entity: media_player.asherbedroomechodot
+              option: media_player.kitchen_ashers_white_echo_pop_2
+        - entity: media_player.ashersbedroomechodot2
           icon: mdi:circle
           show_name: false
           show_background: true
@@ -5762,8 +5771,8 @@ views:
             target:
               entity_id: input_select.selected_speaker
             data:
-              option: media_player.asherbedroomechodot
-        - entity: media_player.office_echo_dot
+              option: media_player.ashersbedroomechodot2
+        - entity: media_player.office_echo_dot_2
           icon: mdi:circle
           show_name: false
           show_background: true
@@ -5777,7 +5786,7 @@ views:
             target:
               entity_id: input_select.selected_speaker
             data:
-              option: media_player.office_echo_dot
+              option: media_player.office_echo_dot_2
         - entity: media_player.office_homepod_mini
           icon: mdi:circle
           show_name: false
@@ -6242,7 +6251,16 @@ views:
           rows: auto
           sub_button:
             bottom_layout: rows
-            main: []
+            main:
+            - entity: sensor.kitchen_eufy_robovac_battery
+              show_name: true
+              show_icon: false
+              show_background: false
+              origami_base:
+                name: ${num(state, 0, '%') || '–'}
+                label: '${states(''vacuum.kitchen_eufy_robovac'') === ''docked'' && Number(state) < 100 ? ''Charging'' : ''Battery''}'
+              tap_action:
+                action: more-info
             bottom:
             - name: Controls
               group:
@@ -6785,10 +6803,10 @@ views:
         icon: mdi:speaker
         icon_selected: mdi:speaker-play
         selected_color: var(--state-media_player-active-color)
-        selected: '[[[ return [''media_player.livingroom_ashers_echo_spot'', ''media_player.kitchen_ashers_white_echo_pop'', ''media_player.asherbedroomechodot'', ''media_player.office_echo_dot'', ''media_player.office_homepod_mini''].some((id) => states[id]?.state === ''playing''); ]]]'
+        selected: '[[[ return [''media_player.livingroom_ashers_echo_spot_2'', ''media_player.kitchen_ashers_white_echo_pop_2'', ''media_player.ashersbedroomechodot2'', ''media_player.office_echo_dot_2'', ''media_player.office_homepod_mini''].some((id) => states[id]?.state === ''playing''); ]]]'
         badge:
-          show: '[[[ return [''media_player.livingroom_ashers_echo_spot'', ''media_player.kitchen_ashers_white_echo_pop'', ''media_player.asherbedroomechodot'', ''media_player.office_echo_dot'', ''media_player.office_homepod_mini''].some((id) => states[id]?.state === ''playing''); ]]]'
-          count: '[[[ return [''media_player.livingroom_ashers_echo_spot'', ''media_player.kitchen_ashers_white_echo_pop'', ''media_player.asherbedroomechodot'', ''media_player.office_echo_dot'', ''media_player.office_homepod_mini''].filter((id) => states[id]?.state === ''playing'').length; ]]]'
+          show: '[[[ return [''media_player.livingroom_ashers_echo_spot_2'', ''media_player.kitchen_ashers_white_echo_pop_2'', ''media_player.ashersbedroomechodot2'', ''media_player.office_echo_dot_2'', ''media_player.office_homepod_mini''].some((id) => states[id]?.state === ''playing''); ]]]'
+          count: '[[[ return [''media_player.livingroom_ashers_echo_spot_2'', ''media_player.kitchen_ashers_white_echo_pop_2'', ''media_player.ashersbedroomechodot2'', ''media_player.office_echo_dot_2'', ''media_player.office_homepod_mini''].filter((id) => states[id]?.state === ''playing'').length; ]]]'
         tap_action:
           action: navigate
           navigation_path: '#popup_music'
@@ -6796,7 +6814,7 @@ views:
           action: custom-js-action
           code: |-
             [[[
-              const speakers = ['media_player.livingroom_ashers_echo_spot', 'media_player.kitchen_ashers_white_echo_pop', 'media_player.asherbedroomechodot', 'media_player.office_echo_dot', 'media_player.office_homepod_mini'];
+              const speakers = ['media_player.livingroom_ashers_echo_spot_2', 'media_player.kitchen_ashers_white_echo_pop_2', 'media_player.ashersbedroomechodot2', 'media_player.office_echo_dot_2', 'media_player.office_homepod_mini'];
               const find = (state) => speakers.find((id) => states[id]?.state === state && states[id].attributes.media_title);
               const speaker = find('playing') ?? find('paused');
               const leader = states[speaker]?.attributes?.group_members?.[0];
@@ -6915,7 +6933,7 @@ views:
         players:
         - entity: |-
             [[[
-              const speakers = ['media_player.livingroom_ashers_echo_spot', 'media_player.kitchen_ashers_white_echo_pop', 'media_player.asherbedroomechodot', 'media_player.office_echo_dot', 'media_player.office_homepod_mini'];
+              const speakers = ['media_player.livingroom_ashers_echo_spot_2', 'media_player.kitchen_ashers_white_echo_pop_2', 'media_player.ashersbedroomechodot2', 'media_player.office_echo_dot_2', 'media_player.office_homepod_mini'];
               const find = (state) => speakers.find((id) => states[id]?.state === state && states[id].attributes.media_title);
               const speaker = find('playing') ?? find('paused') ?? speakers[0];
               const leader = states[speaker]?.attributes?.group_members?.[0];
@@ -6923,7 +6941,7 @@ views:
             ]]]
           show: |-
             [[[
-              const speakers = ['media_player.livingroom_ashers_echo_spot', 'media_player.kitchen_ashers_white_echo_pop', 'media_player.asherbedroomechodot', 'media_player.office_echo_dot', 'media_player.office_homepod_mini'];
+              const speakers = ['media_player.livingroom_ashers_echo_spot_2', 'media_player.kitchen_ashers_white_echo_pop_2', 'media_player.ashersbedroomechodot2', 'media_player.office_echo_dot_2', 'media_player.office_homepod_mini'];
               const find = (state) => speakers.find((id) => states[id]?.state === state && states[id].attributes.media_title);
               const speaker = find('playing') ?? find('paused');
               // The styles can't read states, so the link on the cover reads this variable
@@ -6933,7 +6951,7 @@ views:
             ]]]
           subtitle: |-
             [[[
-              const speakers = ['media_player.livingroom_ashers_echo_spot', 'media_player.kitchen_ashers_white_echo_pop', 'media_player.asherbedroomechodot', 'media_player.office_echo_dot', 'media_player.office_homepod_mini'];
+              const speakers = ['media_player.livingroom_ashers_echo_spot_2', 'media_player.kitchen_ashers_white_echo_pop_2', 'media_player.ashersbedroomechodot2', 'media_player.office_echo_dot_2', 'media_player.office_homepod_mini'];
               const find = (state) => speakers.find((id) => states[id]?.state === state && states[id].attributes.media_title);
               const speaker = states[find('playing') ?? find('paused')];
               const others = (speaker?.attributes?.group_members?.length ?? 1) - 1;

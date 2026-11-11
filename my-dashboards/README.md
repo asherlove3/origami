@@ -21,10 +21,10 @@ Keep a copy of the configuration first, such as a backup under **Settings**, **S
    - **Bedroom Lights**, so its entity ID is `light.bedroom_lights`, with Bedroom Dresser Lamp, Bedroom Strip Lights and Govee Bed Light Strip
    - **Basement Lights**, so its entity ID is `light.basement_lights`, with Basement Light Stairs and Basement Light Right Side
 4. **The music pop-up.** Follow [its setup](../dashboard/music/README.md#setup) for the scripts **Playback** and **Set group volume** and the helper **Group volume**. The helper **Selected speaker** is there already. Give it these options, and delete its old ones:
-   - `media_player.livingroom_ashers_echo_spot`
-   - `media_player.kitchen_ashers_white_echo_pop`
-   - `media_player.asherbedroomechodot`
-   - `media_player.office_echo_dot`
+   - `media_player.livingroom_ashers_echo_spot_2`
+   - `media_player.kitchen_ashers_white_echo_pop_2`
+   - `media_player.ashersbedroomechodot2`
+   - `media_player.office_echo_dot_2`
    - `media_player.office_homepod_mini`
 5. **The server pop-up.** Turn on the four [System Monitor](../dashboard/server/README.md#setup) sensors, and check that their entity IDs match the ones in that README.
 
@@ -37,17 +37,19 @@ Keep a copy of the configuration first, such as a backup under **Settings**, **S
 
 The menu hides Home Assistant's header. To edit a dashboard later, select **Edit** in the menu, or add `?edit=1` to the address. On a tablet, the first button of the menu switches between the Landscape and the Portrait view.
 
-## To check
+## Checked in Home Assistant
 
-These were chosen from the entity list alone, so a few may need a change in [`build.py`](build.py):
+These were checked in Home Assistant 2026.11.1. Change [`build.py`](build.py) if something in the home changes:
 
-- **Duplicates.** Some devices have two entities with the same name. The dashboards use the one without `_2` at its end, such as `media_player.office_echo_dot` and `light.kitchen_sink_light`. If a card stays unavailable, the other one is the right one.
-- **Light groups.** The living room and the office use `light.living_room_lights` and `light.office_lights`. If `light.livingroom_group` and `light.office_lightgroup` hold the right lamps instead, change `light` in those two rooms.
-- **Windows.** The rooms header counts the four window contacts. They have no area in Home Assistant, so no room card and no row of the climate table shows a window yet.
+- **Speakers.** Each Echo has two entities: one from Alexa Devices and one from Alexa Media Player. The dashboards use the Alexa Media Player ones, such as `media_player.office_echo_dot_2` and `media_player.ashersbedroomechodot2`, because only they can play, pause and skip. Neither kind of Echo can join a speaker group. The HomePod can.
+- **Lamps.** The kitchen sink light and the dresser lamp each have a Matter entity and a Govee entity (`_2`). The dashboards use the Matter ones.
+- **Light groups.** `light.living_room_lights` holds all four living room lamps and `light.office_lights` all five office lamps, so the dashboards use them. `light.livingroom_group` and `light.office_lightgroup` hold only two lamps each.
+- **Windows.** The rooms header counts the four window contacts. They have no area in Home Assistant yet, so no room card and no row of the climate table shows a window.
 - **Bedroom sensor.** Bedroom Temp Sensor is in the area Living Room in Home Assistant. The dashboards use it for the bedroom, as its name says.
-- **TV.** The pop-up controls the Roku TV. `TV_APPS` has three app names as a start, and the names have to match the TV's `source_list` attribute under **Developer tools**, **States**.
-- **Vacuum.** The pop-up has the state and the keys. The battery and the suction levels need the vacuum's battery sensor and its `fan_speed_list` attribute.
-- **Fahrenheit.** The comparison weather card's bar goes from 14° to 95°. For Celsius, set `FAHRENHEIT = False`.
+- **TV.** The Roku TV lists Netflix, YouTube and Prime Video in its `source_list`, the three apps in `TV_APPS`.
+- **Vacuum.** The pop-up has the state, the battery from `sensor.kitchen_eufy_robovac_battery` and the keys. The vacuum has no `fan_speed_list`, so there's no suction row. Its cleaning modes are in `select.kitchen_eufy_robovac_clean_mode` instead.
+- **Fahrenheit.** The home uses °F, so the comparison weather card's bar goes from 14° to 95°.
+- **Basement.** Basement Light Right Side was unavailable during the check, so its tile stays grey until it's back online.
 - **Left out.** The home has no fan, thermostat or timer in its entity list, so the fan pop-up, the thermostat cards and the timer favorite aren't there. `light.echo_lamp` and `light.h6004_2` have no area and are in no room.
 
 "All lights off" turns off the lamps that `build.py` lists, not every light entity. The tablets' screens are lights in Home Assistant too, and they would go dark with the rest.

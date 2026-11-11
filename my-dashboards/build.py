@@ -30,6 +30,7 @@ WEATHER = "weather.openweathermap"
 CALENDAR = "calendar.household"
 SHOPPING = "todo.shopping_list"
 VACUUM = "vacuum.kitchen_eufy_robovac"
+VACUUM_BATTERY = "sensor.kitchen_eufy_robovac_battery"
 TV = "media_player.living_room_55_tcl_roku_tv"
 TV_REMOTE = "remote.living_room_55_tcl_roku_tv"
 # The apps of the TV, with the names its source_list attribute uses
@@ -54,12 +55,13 @@ DOORS = [
     ("binary_sensor.kitchen_back_door_entry_door", "Back door"),
 ]
 
-# The speakers of the music pop-up, the favorites and the navigation bar
+# The speakers of the music pop-up, the favorites and the navigation bar.
+# The Echos are the Alexa Media Player entities: the Alexa Devices ones have no play, pause or skip.
 SPEAKERS = [
-    ("media_player.livingroom_ashers_echo_spot", "Living room"),
-    ("media_player.kitchen_ashers_white_echo_pop", "Kitchen"),
-    ("media_player.asherbedroomechodot", "Bedroom"),
-    ("media_player.office_echo_dot", "Office"),
+    ("media_player.livingroom_ashers_echo_spot_2", "Living room"),
+    ("media_player.kitchen_ashers_white_echo_pop_2", "Kitchen"),
+    ("media_player.ashersbedroomechodot2", "Bedroom"),
+    ("media_player.office_echo_dot_2", "Office"),
     ("media_player.office_homepod_mini", "HomePod"),
 ]
 
@@ -102,7 +104,7 @@ ROOMS = [
         ],
         "temperature": "sensor.living_room_temp_3_snzb_02p_sonoff_a440047919_temperature",
         "humidity": "sensor.living_room_temp_3_snzb_02p_sonoff_a440047919_humidity",
-        "speaker": "media_player.livingroom_ashers_echo_spot",
+        "speaker": "media_player.livingroom_ashers_echo_spot_2",
         "tv": TV,
     },
     {
@@ -116,7 +118,7 @@ ROOMS = [
         "scenes": [],
         "temperature": "sensor.temperature_1_snzb_02p_sonoff_a440047912_temperature",
         "humidity": "sensor.temperature_1_snzb_02p_sonoff_a440047912_humidity",
-        "speaker": "media_player.kitchen_ashers_white_echo_pop",
+        "speaker": "media_player.kitchen_ashers_white_echo_pop_2",
     },
     {
         "key": "bedroom",
@@ -133,7 +135,7 @@ ROOMS = [
         "scenes": [("scene.i_love_lydia", "I Love Lydia")],
         "temperature": "sensor.temp_2_snzb_02p_sonoff_a440047917_temperature",
         "humidity": "sensor.temp_2_snzb_02p_sonoff_a440047917_humidity",
-        "speaker": "media_player.asherbedroomechodot",
+        "speaker": "media_player.ashersbedroomechodot2",
     },
     {
         "key": "office",
@@ -156,7 +158,7 @@ ROOMS = [
             ("scene.office_scene_energize", "Energize"),
         ],
         "temperature": "sensor.office_echo_dot_temperature",
-        "speaker": "media_player.office_echo_dot",
+        "speaker": "media_player.office_echo_dot_2",
     },
     {
         "key": "basement",
@@ -598,12 +600,11 @@ def tv_popup(lite):
 
 
 def vacuum_popup(lite):
-    popup = swap(load("vacuum/pop-up.yaml"), {"vacuum.robot": VACUUM})
-    # The state and the keys stay. The battery, the rooms, the map, the maintenance and the suction
-    # need sensors and names of the vacuum that aren't known yet.
+    popup = swap(load("vacuum/pop-up.yaml"), {"vacuum.robot": VACUUM, "sensor.robot_battery": VACUUM_BATTERY})
+    # The state, the battery and the keys stay. The vacuum has no fan_speed_list for the suction,
+    # and the rooms, the map and the maintenance need sensors and names that it doesn't have.
     del popup["origami_popup"]["mini_popups"]
     main = popup["cards"][0]["cards"][0]
-    main["sub_button"]["main"] = []
     keys = [k for k in main["sub_button"]["bottom"][0]["group"] if k["name"] != "Bin"]
     del by_name(keys, "Stop")["origami_base"]["hidden"]
     main["sub_button"]["bottom"][0]["group"] = keys
